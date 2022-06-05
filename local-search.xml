@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>IDEA使用技巧笔记02</title>
+    <link href="/2022/06/05/IDEA02/"/>
+    <url>/2022/06/05/IDEA02/</url>
+    
+    <content type="html"><![CDATA[<h3 id="ideawindows使用技巧笔记02">IDEA（windows）使用技巧笔记02</h3><p><font color="red">注：本博客整理的是windows下的IDEA相关的快捷键，MAC等系统可能有所差异。</font></p><h5 id="编写高质量代码">1. 编写高质量代码</h5><table style="width:100%;"><colgroup><col style="width: 15%" /><col style="width: 60%" /><col style="width: 16%" /><col style="width: 8%" /></colgroup><thead><tr class="header"><th>使用场景</th><th>快捷键</th><th style="text-align: left;">说明</th><th>所属菜单</th></tr></thead><tbody><tr class="odd"><td><strong>1. 代码重构</strong></td><td>shift + F6</td><td style="text-align: left;">重构变量名</td><td>Refactor</td></tr><tr class="even"><td></td><td>ctrl + F6<br />(更方便的方式：<br />修改后按 alt + Enter )</td><td style="text-align: left;">重构方法签名</td><td>Refactor</td></tr><tr class="odd"><td><strong>2. 抽取</strong></td><td>ctrl + alt + V</td><td style="text-align: left;">抽取为变量</td><td>Refactor</td></tr><tr class="even"><td></td><td>ctrl + alt + C</td><td style="text-align: left;">抽取为静态变量</td><td>Refactor</td></tr><tr class="odd"><td></td><td>ctrl + alt + F</td><td style="text-align: left;">抽取为成员变量</td><td>Refactor</td></tr><tr class="even"><td></td><td>ctrl + alt + P</td><td style="text-align: left;">抽取为方法参数</td><td>Refactor</td></tr><tr class="odd"><td></td><td>ctrl + alt + M</td><td style="text-align: left;">抽取代码段为方法</td><td>Refactor</td></tr></tbody></table><h5 id="寻找修改轨迹git的集成">2. 寻找修改轨迹（git的集成）</h5><ul><li><strong>annotate</strong>：在代码行数上右键可以看到此选项，打开后能看到commit信息、作者等。</li><li></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>IDEA使用技巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>IDEA使用技巧笔记01</title>
     <link href="/2022/06/02/IDEA01/"/>
     <url>/2022/06/02/IDEA01/</url>

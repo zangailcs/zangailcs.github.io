@@ -24,7 +24,7 @@
 <meta property="og:description" content="IDEA（windows）使用技巧笔记02 注：本博客整理的是windows下的IDEA相关的快捷键，MAC等系统可能有所差异。 1. 编写高质量代码          使用场景 快捷键 说明 所属菜单     1. 代码重构 shift + F6 重构变量名 Refactor    ctrl + F6(更方便的方式：修改后按 alt + En">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-05T05:45:34.428Z">
-<meta property="article:modified_time" content="2022-06-05T07:59:58.992Z">
+<meta property="article:modified_time" content="2022-06-07T16:07:04.158Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
@@ -177,7 +177,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      343 字
+      694 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      6 分钟
     </span>
   
 
@@ -283,9 +283,67 @@
 </table>
 <h5 id="寻找修改轨迹git的集成">2. 寻找修改轨迹（git的集成）</h5>
 <ul>
-<li><strong>annotate</strong>：在代码行数上右键可以看到此选项，打开后能看到commit信息、作者等。</li>
-<li></li>
+<li><p><strong>annotate</strong>：在代码行数上右键可以看到此选项，打开后能看到commit信息、作者等。</p></li>
+<li><p><strong>revert</strong>：撤销，对应快捷键<strong>“ctrl + alt +
+Z”</strong>，可以对：</p>
+<ul>
+<li>单处修改</li>
+<li>单个文件</li>
+<li>文件夹</li>
 </ul>
+<p>进行撤销操作，回滚到上次提交的状态。</p></li>
+<li><p><strong>local history </strong>: 本地修改记录，通过Help-&gt; Find
+Action (或快捷键ctrl shift A) 搜索“local
+history”，打开此对话框，可以查看idea的本地的修改记录，即使未使用任何git等版本控制工具，也可以使用。</p></li>
+</ul>
+<h5 id="关联一切待补充">3. 关联一切（待补充）</h5>
+<ul>
+<li><h6 id="与spring的关联">与Spring的关联</h6></li>
+<li><h6 id="与数据库的关联">与数据库的关联</h6></li>
+</ul>
+<h5 id="调试程序">4. 调试程序</h5>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>使用场景</th>
+<th>快捷键</th>
+<th>说明</th>
+<th>所属菜单</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. 断点调试</strong></td>
+<td>ctrl + F8</td>
+<td>当前行添加断点/删除断点</td>
+<td>Run</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>shift + F9</td>
+<td>单步调试（Debug模式运行）</td>
+<td>Run</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>F8</td>
+<td>单步运行（Step Over，Debug模式下）</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>F9</td>
+<td>运行到下一个断点（Resume，Debug模式下，<br />若没有下一个断点则运行至结束）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
             </div>
             <hr>
@@ -313,12 +371,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/06/09/Mybatis01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mybatis笔记01</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/02/IDEA01/">
-                        <span class="hidden-mobile">IDEA使用技巧笔记01</span>
+                      <a href="/2022/06/02/StreamAPINotes01/">
+                        <span class="hidden-mobile">Lambda与Stream笔记02--Stream API</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

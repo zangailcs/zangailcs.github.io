@@ -16,21 +16,21 @@
   <meta name="author" content="lics">
   <meta name="keywords" content="fishing &amp; coding">
   
-    <meta name="description" content="Lambda表达式与Stream笔记02--Stream API Stream 基础知识  Stream的三个操作步骤： （1）创建Stream （2）中间操作 （3）终止操作（终端操作） 创建Stream的四种方式： 1234567891011121314151617&#x2F;&#x2F; 1. 通过Collection 系列集合提供的 stream() 或 parallelStream()">
+    <meta name="description" content="Java集合框架笔记02 泛型  基本概念  本质：参数化类型，把类型作为参数传递 常见形式：泛型类、泛型接口、泛型方法 语法： 1&lt;T, ...&gt;     &#x2F;&#x2F; T称为类型占位符，表示一种引用类型 好处： （1）提高代码的重用性 （2）防止类型转换异常，提高代码的安全性 注意点： （1）泛型只能 使用引用类型 （2）不同泛型对象之间不能相互赋值  泛型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lambda与Stream笔记02--Stream API">
-<meta property="og:url" content="https://zangailcs.github.io/2022/05/21/StreamAPINotes01/index.html">
+<meta property="og:title" content="Java集合框架笔记02--泛型;Set">
+<meta property="og:url" content="https://zangailcs.github.io/2022/06/02/JavaCollectionNotes02/index.html">
 <meta property="og:site_name" content="蓑笠翁lcs">
-<meta property="og:description" content="Lambda表达式与Stream笔记02--Stream API Stream 基础知识  Stream的三个操作步骤： （1）创建Stream （2）中间操作 （3）终止操作（终端操作） 创建Stream的四种方式： 1234567891011121314151617&#x2F;&#x2F; 1. 通过Collection 系列集合提供的 stream() 或 parallelStream()">
+<meta property="og:description" content="Java集合框架笔记02 泛型  基本概念  本质：参数化类型，把类型作为参数传递 常见形式：泛型类、泛型接口、泛型方法 语法： 1&lt;T, ...&gt;     &#x2F;&#x2F; T称为类型占位符，表示一种引用类型 好处： （1）提高代码的重用性 （2）防止类型转换异常，提高代码的安全性 注意点： （1）泛型只能 使用引用类型 （2）不同泛型对象之间不能相互赋值  泛型">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-21T06:22:59.218Z">
-<meta property="article:modified_time" content="2022-05-21T06:22:59.218Z">
+<meta property="article:published_time" content="2022-06-02T12:51:05.326Z">
+<meta property="article:modified_time" content="2022-05-21T06:23:00.000Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Lambda与Stream笔记02--Stream API - 蓑笠翁lcs</title>
+  <title>Java集合框架笔记02--泛型;Set - 蓑笠翁lcs</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -156,7 +156,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Lambda与Stream笔记02--Stream API">
+            <span class="h2" id="subtitle" title="Java集合框架笔记02--泛型;Set">
               
             </span>
 
@@ -166,8 +166,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-21 14:22" pubdate>
-        2022年5月21日 下午
+      <time datetime="2022-06-02 20:51" pubdate>
+        2022年6月2日 晚上
       </time>
     </span>
   
@@ -177,7 +177,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.1k 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19 分钟
+      18 分钟
     </span>
   
 
@@ -215,173 +215,91 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Lambda与Stream笔记02--Stream API</h1>
+            <h1 style="display: none">Java集合框架笔记02--泛型;Set</h1>
             
             <div class="markdown-body">
-              <h3
-id="lambda表达式与stream笔记02--stream-api">Lambda表达式与Stream笔记02--Stream
-API</h3>
-<h4 id="stream-基础知识">Stream 基础知识</h4>
+              <h3 id="java集合框架笔记02">Java集合框架笔记02</h3>
+<h4 id="泛型">泛型</h4>
 <ul>
-<li><h5 id="stream的三个操作步骤">Stream的三个操作步骤：</h5>
-<p>（1）创建Stream</p>
-<p>（2）中间操作</p>
-<p>（3）终止操作（终端操作）</p></li>
-<li><h5 id="创建stream的四种方式">创建Stream的四种方式：</h5>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 1. 通过Collection 系列集合提供的 stream() 或 parallelStream()</span><br>      List&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      Stream&lt;String&gt; stream1 = list.stream();<br>  <br>      <span class="hljs-comment">// 2. 通过Arrays中的静态方法 stream() 获取数组流</span><br>      String[] strings = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">10</span>];<br>      Stream&lt;String&gt; stream2 = Arrays.stream(strings);<br>  <br>      <span class="hljs-comment">// 3. 通过Stream中的静态方法 of()</span><br>      Stream&lt;String&gt; stream3 = Stream.of(<span class="hljs-string">&quot;aa&quot;</span>, <span class="hljs-string">&quot;bb&quot;</span>, <span class="hljs-string">&quot;cc&quot;</span>);<br>  <br>      <span class="hljs-comment">// 4. 创建无限流</span><br>      <span class="hljs-comment">// (1) 迭代</span><br>      Stream&lt;Integer&gt; stream41 = Stream.iterate(<span class="hljs-number">0</span>, (x) -&gt; x + <span class="hljs-number">2</span>);<br>  <br>      <span class="hljs-comment">// (2) 生成</span><br>      Stream&lt;Double&gt; stream42 = Stream.generate(Math::random);<br></code></pre></td></tr></table></figure></li>
-<li><h5 id="stream-的中间操作">Stream 的中间操作</h5>
+<li><h5 id="基本概念">基本概念</h5>
 <ul>
-<li><h6 id="惰性求值">惰性求值</h6>
-<p>多个中间操作可以连接起来形成一个流水线，除非流水线上触发终止操作，否则中间操作不会执行任何的处理，而在终止操作时一次性全部处理，称为“惰性求值”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 中间操作： 不会执行任何操作</span><br>      Stream&lt;Employee&gt; stream = employees.stream()<br>              .filter((e) -&gt; &#123;<br>                  System.out.println(<span class="hljs-string">&quot;Stream API 的中间操作&quot;</span>);<br>                  <span class="hljs-keyword">return</span> e.getAge() &gt; <span class="hljs-number">35</span>;<br>              &#125;);<br>    <br>      <span class="hljs-comment">// 终止操作： 一次性执行全部内容，即 “惰性求值”</span><br>      stream.forEach(System.out::println); 	<span class="hljs-comment">// 若注释此行，不会有任何输出</span><br></code></pre></td></tr></table></figure></li>
-<li><h6 id="筛选与切片">筛选与切片</h6>
-<table>
-<thead>
-<tr class="header">
-<th>操作</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>fliter</td>
-<td>接收 Lambda ，从流中排除某些元素</td>
-</tr>
-<tr class="even">
-<td>limit</td>
-<td>截断流，使元素不超过给定数量</td>
-</tr>
-<tr class="odd">
-<td>skip(n)</td>
-<td>跳过元素，返回一个扔掉了前n个元素的流</td>
-</tr>
-<tr class="even">
-<td>distinct</td>
-<td>筛选，通过元素的hashcode() 和 equals 去除重复元素</td>
-</tr>
-</tbody>
-</table></li>
-<li><h6 id="映射">映射</h6>
-<table>
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 89%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>操作</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>map</td>
-<td>接收lambda，将元素转换成其他形式或提取信息。接收一个函数作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素。</td>
-</tr>
-<tr class="even">
-<td>flatMap</td>
-<td>接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有的流连接成一个流。</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// map</span><br>List&lt;String&gt; list = Arrays.asList(<span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-string">&quot;bbb&quot;</span>, <span class="hljs-string">&quot;ccc&quot;</span>, <span class="hljs-string">&quot;ddd&quot;</span>);<br>list.stream()<br>    .map(String::toUpperCase)<br>    .forEach(System.out::println);<br></code></pre></td></tr></table></figure></li>
-<li><h6 id="排序">排序</h6>
-<table>
-<thead>
-<tr class="header">
-<th>操作</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>sorted</td>
-<td>自然排序</td>
-</tr>
-<tr class="even">
-<td>sorted(Comparator com)</td>
-<td>定制排序</td>
-</tr>
-</tbody>
-</table></li>
+<li><p>本质：参数化类型，把类型作为参数传递</p></li>
+<li><p>常见形式：泛型类、泛型接口、泛型方法</p></li>
+<li><p>语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs java">&lt;T, ...&gt;     <span class="hljs-comment">// T称为类型占位符，表示一种引用类型</span><br></code></pre></td></tr></table></figure></li>
+<li><p>好处：</p>
+<p>（1）提高代码的重用性</p>
+<p>（2）防止类型转换异常，提高代码的安全性</p></li>
+<li><p>注意点：</p>
+<p>（1）泛型只能 使用引用类型</p>
+<p>（2）不同泛型对象之间不能相互赋值</p></li>
 </ul></li>
-<li><h5 id="stream-的终止操作">Stream 的终止操作</h5>
+<li><h5 id="泛型类的继承">泛型类的继承</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&lt;T1, T2&gt; &#123;<br>&#125;<br><br><span class="hljs-comment">// 子类不保留父类的泛型</span><br><span class="hljs-comment">// （1）没有类型  擦除</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son</span>&lt;A, B&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span> &#123; <br>    <span class="hljs-comment">// 等价于  class Son extends Father&lt;Object, Object&gt;</span><br>&#125;<br><br><span class="hljs-comment">// （2）具体类型</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son2</span>&lt;A, B&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span>&lt;Integer, String&gt; &#123;<br>&#125;<br><br><span class="hljs-comment">// 子类保留父类的泛型</span><br><span class="hljs-comment">// （1）全部保留</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son3</span>&lt;T1, T2, A, B&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span>&lt;T1, T2&gt;&#123;<br>&#125;<br><br><span class="hljs-comment">// （2）部分保留</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son4</span>&lt;T2, A, B&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span>&lt;Integer, T2&gt;&#123;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><h5 id="泛型在继承方面的体现">泛型在继承方面的体现</h5>
 <ul>
-<li><h6 id="查找与匹配">查找与匹配</h6>
-<table>
-<thead>
-<tr class="header">
-<th>操作</th>
-<th>说明</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>allMatch</td>
-<td>检查是否匹配所有元素</td>
-<td>boolean</td>
-</tr>
-<tr class="even">
-<td>anyMatch</td>
-<td>检查是否匹配至少一个元素</td>
-<td>boolean</td>
-</tr>
-<tr class="odd">
-<td>noneMatch</td>
-<td>检查是否没有匹配所有元素</td>
-<td>boolean</td>
-</tr>
-<tr class="even">
-<td>findFirst</td>
-<td>返回第一个元素</td>
-<td>Optional<T></td>
-</tr>
-<tr class="odd">
-<td>findAny</td>
-<td>返回当前流中的任意元素</td>
-<td>Optional<T></td>
-</tr>
-<tr class="even">
-<td>count</td>
-<td>返回流中元素的个数</td>
-<td>Long</td>
-</tr>
-<tr class="odd">
-<td>max(Comparator com)</td>
-<td>返回流中最大值</td>
-<td>Optional<T></td>
-</tr>
-<tr class="even">
-<td>min(Comparator com)</td>
-<td>返回流中最小值</td>
-<td>Optional<T></td>
-</tr>
-</tbody>
-</table>
-<p>--
-Optional容器：操作结果可能为空时，返回Optional容器，解决空指针异常</p></li>
-<li><h6 id="规约">规约</h6>
+<li><p>类A是类B的父类，但G<A>和G<B>
+二者不具备子父类关系，二者是并列关系</p>
 <ul>
-<li><p>reduce(T identity, BinaryOperator bo) ---------------
-不可能为空，因为有初始值 identity， 所以返回 T</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>);<br><span class="hljs-type">Integer</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> list.stream()<br>                  .reduce(<span class="hljs-number">0</span>, Integer::sum);<br>System.out.println(sum);<br></code></pre></td></tr></table></figure></li>
-<li><p>reduce(BinaryOperator bo) --------------
-可能为空，返回Optional</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Optional&lt;Integer&gt; op = list.stream()<br>                           .reduce(Integer::sum);<br>System.out.println(op.get());<br></code></pre></td></tr></table></figure></li>
+<li>G<A>和G<B>二者共同的父类是G&lt;?&gt; --------- ?为通配符</li>
 </ul></li>
-<li><h6 id="收集">收集</h6>
+<li><p>类（接口）A是类B的父类（接口），A<G>是B<G>的父类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">AbstractList&lt;String&gt; list1 = <span class="hljs-literal">null</span>;<br>List&lt;String&gt; list2 = <span class="hljs-literal">null</span>;<br>ArrayList&lt;String&gt; list3 = <span class="hljs-literal">null</span>;<br>list1 = list3;      <span class="hljs-comment">// 允许</span><br>list2 = list3;      <span class="hljs-comment">// 允许</span><br></code></pre></td></tr></table></figure></li>
+<li><p>使用通配符后的访问要求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; list1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>list1.add(<span class="hljs-string">&quot;AA&quot;</span>);<br>list1.add(<span class="hljs-string">&quot;BB&quot;</span>);<br>list1.add(<span class="hljs-string">&quot;CC&quot;</span>);<br><br>List&lt;?&gt; list2 = list1;<br><br><span class="hljs-comment">// 添加（写入）：对于List&lt;?&gt;不能向其内部添加数据</span><br><span class="hljs-comment">// 除了添加null之外。</span><br><span class="hljs-comment">//list2.add(&quot;AA&quot;);       // 编译报错</span><br>list2.add(<span class="hljs-literal">null</span>);         <span class="hljs-comment">// 允许</span><br><br><span class="hljs-comment">// 读取：允许读取数据，读取的数据类型为Object</span><br><span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> list2.get(<span class="hljs-number">0</span>);<br>System.out.println(o);<br></code></pre></td></tr></table></figure></li>
+<li><p>有限制条件的通配符的使用</p>
 <ul>
-<li><p>collect --
-将流转换成其他形式。接收一个Collector接口的实现，用于给流中的元素做汇总的方法。</p>
-<p>​ --可以使用 Collectors
-工具类中提供的诸多静态方法获取已实现的收集器。</p>
-<p>Collectors 中常用的收集器：</p>
-<p>toList 、toSet、groupingBy（分组）</p></li>
+<li>? ： （-∞, +∞）</li>
+<li>? extends Father: （-∞, Father]</li>
+<li>? super Father : [Father, +∞）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span> &#123;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span> &#123;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Demo4</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        ?   ： （-∞, +∞）</span><br><span class="hljs-comment">        ? extends Father: （-∞, Father]</span><br><span class="hljs-comment">        ? super Father  :  [Father, +∞）</span><br><span class="hljs-comment">         */</span><br><br>        List&lt;? <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Father</span>&gt; list1 = <span class="hljs-literal">null</span>;<br>        List&lt;? <span class="hljs-built_in">super</span> Father&gt; list2 = <span class="hljs-literal">null</span>;<br><br>        List&lt;Student&gt; list3 = <span class="hljs-literal">null</span>;<br>        List&lt;Father&gt; list4 = <span class="hljs-literal">null</span>;<br>        List&lt;Object&gt; list5 = <span class="hljs-literal">null</span>;<br><br>        list1 = list3;<br>        list1 = list4;<br>        <span class="hljs-comment">// list1 = list5;   //不允许</span><br><br>        <span class="hljs-comment">// list2 = list3;   //不允许</span><br>        list2 = list4;<br>        list2 = list5;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ul>
+<h4 id="泛型集合">泛型集合</h4>
+<ul>
+<li><h5 id="基本概念-1">基本概念</h5>
+<ul>
+<li>参数化类型、类型安全的集合，强制集合元素的类型必须一致。</li>
+<li>特点：
+<ul>
+<li>编译时即可检查，而非运行时抛出异常。</li>
+<li>访问时，不必类型转换。</li>
+<li>不同泛型之间引用不能相互赋值，泛型不存在多态。</li>
 </ul></li>
 </ul></li>
-<li><p>并行流与顺序流</p>
-<p>​ 调用 parallel() 方法或 sequential() 切换并行流 或 串行流</p></li>
+</ul>
+<h4 id="set">Set</h4>
+<ul>
+<li><h5 id="基本概念-2">基本概念</h5>
+<ul>
+<li>特点：无序、无下标、元素不可重复</li>
+<li>方法：全部继承自Collection中的方法</li>
+</ul></li>
+<li><h5 id="遍历方式">遍历方式</h5>
+<ul>
+<li>增强for</li>
+<li>迭代器</li>
+</ul></li>
+</ul>
+<h4 id="set-的实现类">Set 的实现类</h4>
+<ul>
+<li><h5 id="hashset">HashSet</h5>
+<ul>
+<li>基于HashCode计算元素的存放位置</li>
+<li>当存入元素的哈希码相同时，调用equals确认，如果结果为true，拒绝后者存入</li>
+<li>存储结构：哈希表（数组+链表+红黑树）</li>
+</ul></li>
+<li><h5 id="treeset">TreeSet</h5>
+<ul>
+<li>基于排列顺序实现元素不重复</li>
+<li>实现了SortedSet接口，对集合元素自动排序</li>
+<li>元素对象的类型必须实现Comparable接口，指定排序的规则
+<ul>
+<li>通过该接口中的CompareTo方法确定是否为重复元素</li>
+</ul></li>
+<li>存储结构：红黑树</li>
+</ul></li>
 </ul>
 
             </div>
@@ -392,7 +310,7 @@ Optional容器：操作结果可能为空时，返回Optional容器，解决空�
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-Stream-API/">Lambda表达式;Stream API</a>
+                      <a class="hover-with-bg" href="/categories/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">Java集合框架</a>
                     
                   </div>
                 
@@ -410,9 +328,9 @@ Optional容器：操作结果可能为空时，返回Optional容器，解决空�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/02/IDEA01/">
+                      <a href="/2022/06/02/JavaCollectionNotes01/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IDEA使用技巧笔记01</span>
+                        <span class="hidden-mobile">Java集合框架笔记01--Collection基础概念; List及实现类</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -420,8 +338,8 @@ Optional容器：操作结果可能为空时，返回Optional容器，解决空�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/21/LambdaNotes01/">
-                        <span class="hidden-mobile">Lambda与Stream笔记01--Lambda基础语法</span>
+                      <a href="/2022/06/02/JavaCollectionNotes03/">
+                        <span class="hidden-mobile">Java集合框架笔记03--Map;Collections工具类</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

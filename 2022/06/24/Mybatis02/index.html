@@ -16,24 +16,24 @@
   <meta name="author" content="lics">
   <meta name="keywords" content="fishing &amp; coding">
   
-    <meta name="description" content="Mybatis笔记02 1. CRUD （1）namespace: namespace中的包名要和Dao&#x2F;mapper接口的包名一致！ （2）select: 选择&#x2F;查询语句；  id：就是对应的namespace中的方法名； resultType: Sql语句执行的返回值 parameterType：参数类型 步骤：   编写接口 12&#x2F;&#x2F; 根据id查询用户User ge">
+    <meta name="description" content="Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap 1. CRUD （1）namespace: namespace中的包名要和Dao&#x2F;mapper接口的包名一致！ （2）select: 选择&#x2F;查询语句；  id：就是对应的namespace中的方法名； resultType: Sql语句执行的返回值 parameterType：参数类型 步骤：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis笔记02">
-<meta property="og:url" content="https://zangailcs.github.io/2022/06/12/Mybatis02/index.html">
+<meta property="og:title" content="Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap">
+<meta property="og:url" content="https://zangailcs.github.io/2022/06/24/Mybatis02/index.html">
 <meta property="og:site_name" content="蓑笠翁lcs">
-<meta property="og:description" content="Mybatis笔记02 1. CRUD （1）namespace: namespace中的包名要和Dao&#x2F;mapper接口的包名一致！ （2）select: 选择&#x2F;查询语句；  id：就是对应的namespace中的方法名； resultType: Sql语句执行的返回值 parameterType：参数类型 步骤：   编写接口 12&#x2F;&#x2F; 根据id查询用户User ge">
+<meta property="og:description" content="Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap 1. CRUD （1）namespace: namespace中的包名要和Dao&#x2F;mapper接口的包名一致！ （2）select: 选择&#x2F;查询语句；  id：就是对应的namespace中的方法名； resultType: Sql语句执行的返回值 parameterType：参数类型 步骤：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zangailcs.github.io/images/MyBatis/01-dbnames.png">
 <meta property="og:image" content="https://zangailcs.github.io/images/MyBatis/02-problem-pwdnull.png">
-<meta property="article:published_time" content="2022-06-12T13:49:53.567Z">
-<meta property="article:modified_time" content="2022-06-14T10:03:22.162Z">
+<meta property="article:published_time" content="2022-06-24T13:37:03.642Z">
+<meta property="article:modified_time" content="2022-06-24T13:37:03.642Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://zangailcs.github.io/images/MyBatis/01-dbnames.png">
   
   
-  <title>Mybatis笔记02 - 蓑笠翁lcs</title>
+  <title>Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap - 蓑笠翁lcs</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -159,7 +159,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Mybatis笔记02">
+            <span class="h2" id="subtitle" title="Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap">
               
             </span>
 
@@ -169,8 +169,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-06-12 21:49" pubdate>
-        2022年6月12日 晚上
+      <time datetime="2022-06-24 21:37" pubdate>
+        2022年6月24日 晚上
       </time>
     </span>
   
@@ -218,10 +218,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Mybatis笔记02</h1>
+            <h1 style="display: none">Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap</h1>
             
             <div class="markdown-body">
-              <h3 id="mybatis笔记02">Mybatis笔记02</h3>
+              <h3
+id="mybatis笔记02--crud核心配置resultmap">Mybatis笔记02--CRUD&amp;核心配置&amp;resultMap</h3>
 <h4 id="crud">1. CRUD</h4>
 <p>（1）<strong>namespace</strong>:
 namespace中的包名要和Dao/mapper接口的包名一致！</p>
@@ -388,9 +389,9 @@ SqlSessionFactoryBuilder 即可。可以接受环境配置的两个方法签名�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/12/Mybatis01/">
+                      <a href="/2022/06/24/Mybatis01/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mybatis笔记01</span>
+                        <span class="hidden-mobile">Mybatis笔记01--环境搭建</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -398,8 +399,8 @@ SqlSessionFactoryBuilder 即可。可以接受环境配置的两个方法签名�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/05/IDEA02/">
-                        <span class="hidden-mobile">IDEA使用技巧笔记02</span>
+                      <a href="/2022/06/24/Mybatis03/">
+                        <span class="hidden-mobile">Mybatis笔记03--日志&分页&注解开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -601,20 +602,5 @@ SqlSessionFactoryBuilder 即可。可以接受环境配置的两个方法签名�
 <script  src="/js/boot.js" ></script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

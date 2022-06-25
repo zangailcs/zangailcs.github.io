@@ -16,21 +16,21 @@
   <meta name="author" content="lics">
   <meta name="keywords" content="fishing &amp; coding">
   
-    <meta name="description" content="Mybatis笔记04--复杂查询环境 1. 多对一处理 多个学生选一位老师的课  多个学生，对应一位老师 对于学生而言，关联，多个学生关联一个老师 【多对一】 对于老师而言，集合，一个老师有很多个学生 【一对多】  12345678910111213141516171819202122CREATE TABLE &#96;teacher&#96; (  &#96;id&#96; INT(10) NOT NUL">
+    <meta name="description" content="Mybatis笔记04--多对一与一对多 1. 多对一处理 多个学生选一位老师的课  多个学生，对应一位老师 对于学生而言，关联，多个学生关联一个老师 【多对一】 对于老师而言，集合，一个老师有很多个学生 【一对多】  12345678910111213141516171819202122CREATE TABLE &#96;teacher&#96; (  &#96;id&#96; INT(10) NOT NU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis笔记04--复杂查询环境">
-<meta property="og:url" content="https://zangailcs.github.io/2022/06/24/Mybatis04/index.html">
+<meta property="og:title" content="Mybatis笔记04--多对一与一对多">
+<meta property="og:url" content="https://zangailcs.github.io/2022/06/25/Mybatis04/index.html">
 <meta property="og:site_name" content="蓑笠翁lcs">
-<meta property="og:description" content="Mybatis笔记04--复杂查询环境 1. 多对一处理 多个学生选一位老师的课  多个学生，对应一位老师 对于学生而言，关联，多个学生关联一个老师 【多对一】 对于老师而言，集合，一个老师有很多个学生 【一对多】  12345678910111213141516171819202122CREATE TABLE &#96;teacher&#96; (  &#96;id&#96; INT(10) NOT NUL">
+<meta property="og:description" content="Mybatis笔记04--多对一与一对多 1. 多对一处理 多个学生选一位老师的课  多个学生，对应一位老师 对于学生而言，关联，多个学生关联一个老师 【多对一】 对于老师而言，集合，一个老师有很多个学生 【一对多】  12345678910111213141516171819202122CREATE TABLE &#96;teacher&#96; (  &#96;id&#96; INT(10) NOT NU">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-24T13:37:03.642Z">
-<meta property="article:modified_time" content="2022-06-25T08:55:44.824Z">
+<meta property="article:published_time" content="2022-06-25T09:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-25T09:09:33.952Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Mybatis笔记04--复杂查询环境 - 蓑笠翁lcs</title>
+  <title>Mybatis笔记04--多对一与一对多 - 蓑笠翁lcs</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -156,7 +156,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Mybatis笔记04--复杂查询环境">
+            <span class="h2" id="subtitle" title="Mybatis笔记04--多对一与一对多">
               
             </span>
 
@@ -166,8 +166,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-06-24 21:37" pubdate>
-        2022年6月24日 晚上
+      <time datetime="2022-06-25 17:00" pubdate>
+        2022年6月25日 下午
       </time>
     </span>
   
@@ -215,10 +215,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Mybatis笔记04--复杂查询环境</h1>
+            <h1 style="display: none">Mybatis笔记04--多对一与一对多</h1>
             
             <div class="markdown-body">
-              <h3 id="mybatis笔记04--复杂查询环境">Mybatis笔记04--复杂查询环境</h3>
+              <h3
+id="mybatis笔记04--多对一与一对多">Mybatis笔记04--多对一与一对多</h3>
 <h4 id="多对一处理">1. 多对一处理</h4>
 <p>多个学生选一位老师的课</p>
 <ul>
@@ -287,18 +288,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/24/Mybatis03/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mybatis笔记03--日志&分页&注解开发</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/05/IDEA02/">
-                        <span class="hidden-mobile">IDEA使用技巧笔记02</span>
+                      <a href="/2022/06/22/Mybatis03/">
+                        <span class="hidden-mobile">Mybatis笔记03--日志&分页&注解开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

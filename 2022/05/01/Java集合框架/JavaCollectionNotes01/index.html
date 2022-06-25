@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="lics">
+  <meta name="keywords" content="fishing &amp; coding">
+  
+    <meta name="description" content="Java集合框架笔记01 基础概念  集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。 集合与数组的区别：  数组长度固定，集合长度不固定。 数组可以存储基本类型和引用类型，集合只能存储引用类型   Collection体系集合  Collection体系集合框架： &#96; Collection父接口  方法：  boolean add(E e) &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合框架笔记01--Collection基础概念; List及实现类">
+<meta property="og:url" content="https://zangailcs.github.io/2022/05/01/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/JavaCollectionNotes01/index.html">
+<meta property="og:site_name" content="蓑笠翁lcs">
+<meta property="og:description" content="Java集合框架笔记01 基础概念  集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。 集合与数组的区别：  数组长度固定，集合长度不固定。 数组可以存储基本类型和引用类型，集合只能存储引用类型   Collection体系集合  Collection体系集合框架： &#96; Collection父接口  方法：  boolean add(E e) &#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zangailcs.github.io/images/JavaCollectionNotes/01_Collection.png">
+<meta property="article:published_time" content="2022-05-01T09:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-25T09:11:24.677Z">
+<meta property="article:author" content="lics">
+<meta property="article:tag" content="fishing &amp; coding">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zangailcs.github.io/images/JavaCollectionNotes/01_Collection.png">
+  
+  
+  <title>Java集合框架笔记01--Collection基础概念; List及实现类 - 蓑笠翁lcs</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zangailcs.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Lics</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java集合框架笔记01--Collection基础概念; List及实现类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-01 17:00" pubdate>
+        2022年5月1日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java集合框架笔记01--Collection基础概念; List及实现类</h1>
+            
+            <div class="markdown-body">
+              <h3 id="java集合框架笔记01">Java集合框架笔记01</h3>
+<h4 id="基础概念">基础概念</h4>
+<ul>
+<li>集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。</li>
+<li>集合与数组的区别：
+<ul>
+<li>数组长度固定，集合长度不固定。</li>
+<li>数组可以存储基本类型和引用类型，集合只能存储引用类型</li>
+</ul></li>
+</ul>
+<h4 id="collection体系集合">Collection体系集合</h4>
+<ul>
+<li><h5 id="collection体系集合框架">Collection体系集合框架：</h5>
+<p><img src="/images/JavaCollectionNotes/01_Collection.png" srcset="/img/loading.gif" lazyload width="600px" height="300px" style="center"/>`</p></li>
+<li><h5 id="collection父接口">Collection父接口</h5>
+<ul>
+<li><h6 id="方法">方法：</h6>
+<ul>
+<li>boolean add(E e) // 添加一个元素</li>
+<li>boolean addAll(Collection c) // 将集合c中的所有元素添加到此集合</li>
+<li>void clear() // 清空集合中的所有元素</li>
+<li>boolean contains(Object o) // 检查集合中是否包含o元素</li>
+<li>boolean containsAll(Collection c) //
+检查集合中是否包含c中所有元素</li>
+<li>boolean equals(Object obj) // equals</li>
+<li>boolean isEmpty() // 判断集合是否为空集合</li>
+<li>boolean remove(Object o) // 移除o元素</li>
+<li>boolean removeAll(Collection c) //
+移除也包含在集合c中的所有元素</li>
+<li>boolean retainAll(Collection c) //
+相当于交集，仅此集合中保留也包含在c中的元素</li>
+<li>int size() // 返回集合中的元素的个数</li>
+<li>Object[] toArray() // 将集合转换成数组</li>
+</ul></li>
+<li><h6 id="遍历collection">遍历Collection：</h6>
+<ul>
+<li><p>增强for （for-each）</p></li>
+<li><p>迭代器（Iterator）</p>
+<p>（1）有三个方法：</p>
+<ul>
+<li>hasNext(); // 有没有下一个元素</li>
+<li>next(); // 获取下一个元素</li>
+<li>remove(); // 删除一个元素</li>
+</ul>
+<p>（2）使用迭代器遍历集合的典型代码段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Iterator</span> <span class="hljs-variable">it</span> <span class="hljs-operator">=</span> collection.iterator();<br><span class="hljs-keyword">while</span> (it.hasNext()) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> (String) it.next();<br>    System.out.println(s);<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">     * !!! 不允许遍历过程中使用Collection中的其他方法改变集合中的元素 !!!</span><br><span class="hljs-comment">     * 否则将抛出“ConcurrentModificationException” 并发修改异常</span><br><span class="hljs-comment">     * 但可以使用迭代器中的remove()方法删除元素</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-comment">// collection.remove(s);    // 不允许！ 抛出ConcurrentModificationException异常</span><br>    <span class="hljs-comment">// it.remove();             // 允许</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​</p></li>
+</ul></li>
+</ul></li>
+<li><h5 id="list子接口">List子接口</h5>
+<ul>
+<li><h6 id="特点">特点：</h6>
+<p>有序、有下标、元素可重复</p></li>
+<li><h6 id="方法-1">方法：</h6>
+<p>包含Collection父接口中的全部方法，并包含以下方法：</p>
+<ul>
+<li>void add(int index, E element) // 将元素插入指定位置</li>
+<li>boolean addAll(int index, Collection c) //
+将c中的所有元素插入到此集合的指定位置</li>
+<li>E get(int index) // 获取指定位置的元素</li>
+<li>List subList(int fromIndex, int toIndex) // 截取部分列表</li>
+<li>indexOf(Object o) // 获取o第一次出现的位置</li>
+<li>lastIndexOf(Object o) //</li>
+<li>remove(int index)</li>
+</ul></li>
+<li><h6 id="遍历方式">遍历方式：</h6>
+<p>可以使用for、增强for、迭代器遍历</p></li>
+<li><h6 id="listiterator">ListIterator：</h6>
+<p>比Collection的Iterator功能更强大，既可以前向遍历，又可以后向遍历，还可以在遍历过程中添加、修改或删除元素。</p>
+<p>​ 包含以下方法：</p>
+<ul>
+<li>void add(E e) // 将e插入list</li>
+<li>boolean hasNext()<br />
+</li>
+<li>boolean hasPrevious()</li>
+<li>E next() // 返回下一个元素并移动游标</li>
+<li>int nextIndex() // 返回下个元素的下标</li>
+<li>E previous()</li>
+<li>int previousIndex()</li>
+<li>void remove() // 删除上一次调用next或previous返回的元素</li>
+<li>void set(E e) // 修改上一次调用next或previous返回的元素</li>
+</ul></li>
+</ul></li>
+<li><h5 id="list的实现类">List的实现类：</h5>
+<ul>
+<li>ArrayList
+<ul>
+<li>数组结构实现，查询快、增删慢</li>
+<li>运行效率快、线程不安全</li>
+</ul></li>
+<li>Vector
+<ul>
+<li>数组结构实现，查询快、增删慢</li>
+<li>运行效率慢、线程安全</li>
+</ul></li>
+<li>LinkedList
+<ul>
+<li>链表结构实现，增删快、查询慢</li>
+</ul></li>
+</ul></li>
+<li><h5 id="arraylist-源码分析">ArrayList 源码分析</h5>
+<p>​ DEFAULT_CAPACITY = 10 默认容量大小</p>
+<p>​ --
+如果没有像集合中添加任何元素时，容量是0；添加一个元素之后，容量是10</p>
+<p>​ elementData 存放元素的数组</p>
+<p>​ size 实际元素个数</p>
+<p>​ add方法，在数组容量不够时，扩容为原来的1.5倍</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">grow</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>    <span class="hljs-comment">// overflow-conscious code</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">oldCapacity</span> <span class="hljs-operator">=</span> elementData.length;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">newCapacity</span> <span class="hljs-operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>        newCapacity = minCapacity;<br>    <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>        newCapacity = hugeCapacity(minCapacity);<br>    <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span><br>    elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><h5 id="linkedlist-源码分析">LinkedList 源码分析</h5>
+<p>基于双向链表</p>
+<p>int size 集合大小</p>
+<p>Node first 链表的头节点</p>
+<p>Node last 链表的尾节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>&lt;E&gt; &#123;<br>    E item;<br>    Node&lt;E&gt; next;<br>    Node&lt;E&gt; prev;<br><br>    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;<br>        <span class="hljs-built_in">this</span>.item = element;<br>        <span class="hljs-built_in">this</span>.next = next;<br>        <span class="hljs-built_in">this</span>.prev = prev;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">linkLast</span><span class="hljs-params">(E e)</span> &#123;<br>    <span class="hljs-keyword">final</span> Node&lt;E&gt; l = last;<br>    <span class="hljs-keyword">final</span> Node&lt;E&gt; newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>&lt;&gt;(l, e, <span class="hljs-literal">null</span>);<br>    last = newNode;<br>    <span class="hljs-keyword">if</span> (l == <span class="hljs-literal">null</span>)<br>        first = newNode;<br>    <span class="hljs-keyword">else</span><br>        l.next = newNode;<br>    size++;<br>    modCount++;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​</p></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">Java集合框架</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/05/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/JavaCollectionNotes02/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合框架笔记02--泛型;Set</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/04/MySQL/MySQLNotes02/">
+                        <span class="hidden-mobile">深入浅出MySQL笔记02--开发篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/zangailcs" target="_blank" rel="nofollow noopener"><span>lics</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

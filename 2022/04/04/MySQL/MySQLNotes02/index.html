@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="lics">
+  <meta name="keywords" content="fishing &amp; coding">
+  
+    <meta name="description" content="深入浅出MySQL 开发篇 1. 表类型（存储引擎）的选择 存储引擎概述 ​ 插件式存储引擎是MySQL数据库重要特性之一，可根据应用的需要选择如何存储和索引数据、是否使用事务等。MySQL默认支持多种存储引擎，以适应不同领域的db应用需求。 ​ MySQL 5.0 支持的存储引擎：MyISAM, InnoDB, DBD, MEMORY, MERGE,等。其中InnoDB, DBD提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出MySQL笔记02--开发篇">
+<meta property="og:url" content="https://zangailcs.github.io/2022/04/04/MySQL/MySQLNotes02/index.html">
+<meta property="og:site_name" content="蓑笠翁lcs">
+<meta property="og:description" content="深入浅出MySQL 开发篇 1. 表类型（存储引擎）的选择 存储引擎概述 ​ 插件式存储引擎是MySQL数据库重要特性之一，可根据应用的需要选择如何存储和索引数据、是否使用事务等。MySQL默认支持多种存储引擎，以适应不同领域的db应用需求。 ​ MySQL 5.0 支持的存储引擎：MyISAM, InnoDB, DBD, MEMORY, MERGE,等。其中InnoDB, DBD提供">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-04T09:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-25T09:12:21.403Z">
+<meta property="article:author" content="lics">
+<meta property="article:tag" content="fishing &amp; coding">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>深入浅出MySQL笔记02--开发篇 - 蓑笠翁lcs</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zangailcs.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Lics</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="深入浅出MySQL笔记02--开发篇">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-04 17:00" pubdate>
+        2022年4月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">深入浅出MySQL笔记02--开发篇</h1>
+            
+            <div class="markdown-body">
+              <h2 id="深入浅出mysql-开发篇">深入浅出MySQL 开发篇</h2>
+<h3 id="表类型存储引擎的选择">1. 表类型（存储引擎）的选择</h3>
+<h5 id="存储引擎概述">存储引擎概述</h5>
+<p>​
+插件式存储引擎是MySQL数据库重要特性之一，可根据应用的需要选择如何存储和索引数据、是否使用事务等。MySQL默认支持多种存储引擎，以适应不同领域的db应用需求。</p>
+<p>​ MySQL 5.0 支持的存储引擎：MyISAM, InnoDB, DBD, MEMORY,
+MERGE,等。其中InnoDB, DBD提供事务安全表，其他都是非事务安全表。</p>
+<p>​ MySQL 5.5 之前的默认存储引擎是MyISAM，5.5 之后改为了InnoDB。</p>
+<h5 id="各种存储引擎的特性">各种存储引擎的特性</h5>
+<h6 id="myisam">1. MyISAM</h6>
+<p>​
+不支持事务、不支持外键，优势是访问速度快，对事务完整性没有要求或以SELECT
+INSERT为主的应用可以使用这个引擎创建表。</p>
+<p>​ 每个MyISAM在磁盘上存储成3个文件，其文件名为表名，扩展名分别是</p>
+<ul>
+<li><p>.frm （存储表定义）</p></li>
+<li><p>.MYD （MYData, 存储数据）</p></li>
+<li><p>.MYI （MYIndex, 存储索引）</p>
+<p>MyISAM表还支持3种不同的存储格式：</p></li>
+<li><p>静态（固定长度）表</p></li>
+<li><p>动态表</p></li>
+<li><p>压缩表</p></li>
+</ul>
+<p>​
+静态表是默认的存储格式，表中字段都是非变长字段，从而每个记录长度固定，优点是存储迅速，容易缓存，出故障易恢复；缺点是占用空间比动态表多。静态表数据在存储时会按列宽定义补足空格，应用访问时空格在返回给应用之前被去掉。
+​
+动态表中包含变长字段，记录长度不固定，占用空间少，但频繁地更新和删除记录会产生碎片，需定期执行OPTIMIZE
+TABLE 或 myisamchk-r来改善命令。出故障不易维护。 ​
+压缩表由myisampack工具创建，
+占据非常小的磁盘空间。每个记录被单独压缩，只有非常小的访问开支。</p>
+<h6 id="innodb">2. InnoDB</h6>
+<p>​
+提供了具有提交、回滚和崩溃恢复能力的事务安全。对比MyISAM，InnoDB写的处理效率差一些，并会占用更多的磁盘空间以保留数据和索引。</p>
+<p>​ InnoDB的表的特点：</p>
+<ol type="1">
+<li><p>自动增长列</p>
+<p>定义方式：col_def auto_increment</p>
+<p>​ eg: create table tname (i smallint not null
+<strong>auto_increment</strong>)</p>
+<p>设置自动增长列的初始值：ALTER TABLE *** AUTO_INCREMENT = n
+(默认从1开始)</p>
+<p>查询当前线程最后插入记录使用的值：select LAST_INSERT_ID();</p>
+<p>对于InnoDB，自动增长列<strong>必须是索引</strong>，也必须是<strong>组合索引的第一列</strong>。</p></li>
+<li><p>外键约束</p>
+<ol type="1">
+<li><p>MySQL支持外键的存储引擎只有InnoDB。在创建外键时，要求父表必须有对应的索引，子表在创建外键时也会自动创建对应的索引。</p></li>
+<li><p>创建索引时，可以指定在删除、更新父表时，对子表进行的相应操作，包括：</p></li>
+</ol>
+<ul>
+<li>RESTRICT：限制在子表有关联记录的情况下父表不能更新</li>
+<li>CASCADE: 父表在更新和删除时，更新或删除子表对应记录</li>
+<li>SET NULL: 父表在更新和删除时，子表对应记录的对应字段被SET NULL</li>
+<li>NO ACTION: 同RESTRICT</li>
+</ul>
+<ol start="3" type="1">
+<li>当某个表被其他表创建了外键参照，该表的对应索引或主键禁止被删除。</li>
+<li>查看外键信息：show create table 和 show table status</li>
+</ol></li>
+<li><p>存储方式</p>
+<ul>
+<li>使用共享表空间存储，创建的表的表结构存在.frm
+文件中，数据和索引存在innodb_data_home_dir
+和innodb_data_file_path定义的表空间中，可以是多个文件。</li>
+<li>使用多表空间存储，创建的表的表结构存在.frm
+文件中，但每个表的数据和索引单独保存在.ibd中。如果是分区表，则每个分区对应单独的.ibd文件，文件名是“表名+分区名”。</li>
+</ul>
+<p>​
+多表空间的数据文件无大小限制，不需设置初始大小和文件的最大限制、扩展大小等参数。</p></li>
+</ol>
+<h5 id="memory">3. MEMORY</h5>
+<p>​
+使用存在于内存中的内容创建表。每个MEMORY表只对应一个磁盘文件，格式是.frm。MEMORY表访问非常快，因为数据放在内存中，且默认用HASH索引（创建索引时可以指定为BTREE），但一旦服务关闭，表中数据就会丢掉。</p>
+<p>​
+服务器需要足够内存维持所有同一时间使用的MEMORY表，当不再需要MEMORY表时，需要执行DELETE
+或 TRUNCATE TABLE或DROP TABLE释放其占用的内存。</p>
+<p>​
+MEMORY主要用于内容变化不频繁的代码表，或作为统计操作的中间结果表，便于高效对中间结果进行分析。</p>
+<h5 id="merge">4. MERGE</h5>
+<p>​
+是一组MyISAM表的组合，这些MyISAM表必须结构完全相同，MERGE表本身没有数据，对MERGE表的删改查操作实际是对内部的MyISAM表进行的。对MERGE表的插入操作通过INSERT_METHOD子句定义插入的表。</p>
+<p>​
+<strong>对MERGE表的DROP操作只是删除MERGE表的定义</strong>，对内部表没有任何影响。</p>
+<p>​ MERGE表 <strong>vs</strong>
+分区表：MERGE表并不能智能地将记录写到对应的表中，分区表可以。通常使用分区表透明地对多个表进行查询和更新操作。</p>
+<h3 id="合适的数据类型">2. 合适的数据类型</h3>
+<ul>
+<li>对于字符类型，要根据存储引擎进行相应的选择</li>
+<li>对精度要求较高的应用中，建议用定点数存储数值，以保证结果的正确性</li>
+<li>对含有TEXT和BLOB字段的表，如果经常增删记录，要定期执行OPTIMIZE
+TABLE对表进行碎片整理</li>
+<li>日期类型如果要让不同时区的用户使用，最好使用TIMESTAMP，因为日期类型中只有它能和实际时区对应。</li>
+</ul>
+<h3 id="字符集">3. 字符集</h3>
+<ul>
+<li>如果应用需要处理各种文字，或将发布到不同语言的国家地区，应该选择Unicode(对MySQL来说就是UTF-8)字符集。</li>
+<li>如果数据库只需要支持一般中文，数据量大且要求性能，应该选择双字节定长编码的中文字符集，eg：GBK。GBK中每个汉字只占2字节，而UTF-8汉字编码是3字节。
+<ul>
+<li>如果应用主要处理英文字符，UTF-8更好，因为GBK等的西文编码也是2字节。</li>
+</ul></li>
+<li>如果数据库需要大量的比较、排序等字符运算，那么选择定长字符集处理速度更快。</li>
+</ul>
+<h3 id="索引">4. 索引</h3>
+<p>​
+所有MySQL列类型都可以被索引。MyISAM和InnoDB的表默认创建的是BTREE索引；MEMORY默认使用HASH索引。</p>
+<h5 id="设计索引的原则">设计索引的原则：</h5>
+<ul>
+<li>最适合索引的列是出现在WHERE子句中的列，或连接子句中指定的列</li>
+<li>使用唯一索引：索引的列的基数（集合里的概念，不同的值的个数）越大，索引效果越好。eg，在出生日期列建索引比在性别（只有两个值）列效果好。</li>
+<li>使用短索引：如果对字符串列进行索引，应尽可能指定一个前缀长度。短索引节省索引空间，也可能使查询更快；此外，对于较短的键值，索引高速缓存中的块能容纳更多键值，增加了找到行而不用读取索引中较多块的可能性。</li>
+<li>利用最左前缀：</li>
+<li>不要过度索引：额外的索引会占用额外磁盘空间，降低写操作的性能。修改表内容时，索引也需要更新甚至重构。</li>
+<li>对于InnoDB的表
+<ul>
+<li>记录默认按照一定的顺序保存
+<ul>
+<li>有明确定义的主键：按主键顺序</li>
+<li>无明确定义的主键但有唯一索引：按唯一索引顺序</li>
+<li>都无：自动生成一个内部列，按该列顺序</li>
+</ul></li>
+<li>按照主键或内部列进行访问是最快的，所以InnoDB表尽可能指定主键</li>
+<li>当表中多个列都是唯一时，选最常作为访问条件的列作为主键</li>
+<li>InnoDB表的普通索引也会保存主键的键值，所以主键要尽可能短</li>
+</ul></li>
+</ul>
+<h5 id="btree-索引和hash索引">BTREE 索引和HASH索引</h5>
+<ul>
+<li>HASH索引特点：
+<ul>
+<li>只用于使用=或&lt;=&gt;操作符的等式比较</li>
+<li>优化器不能使用HASH索引加速ORDER BY</li>
+<li>只能用整个关键字来搜索一行</li>
+</ul></li>
+<li>对于BTREE索引，使用&gt; , &lt; , &gt;= , &lt;= , BETWEEN , != 或者
+&lt;&gt; , 或者 LIKE
+（模式不以通配符开始）时，都可以使用相关列上的索引</li>
+</ul>
+<h3 id="视图">5. 视图</h3>
+<p>​
+视图（view）是一种虚拟存在的表，并不在数据库中实际存在，使用透明。</p>
+<h5 id="视图相对于普通的表优势">视图相对于普通的表优势：</h5>
+<ul>
+<li>简单：用户无需关心后面对应的表结构、关联条件、筛选条件，对用户来说是过滤好的复合条件的结果集。</li>
+<li>安全：用户只能访问被允许查询的结果集</li>
+<li>数据独立：一旦视图结构确定，可以屏蔽表结构变化对用户的影响</li>
+</ul>
+<h5 id="视图操作">视图操作</h5>
+<ul>
+<li><p>创建或修改视图</p>
+<p>创建视图需要有CREATE VIEW 权限，并对查询涉及的列有SELECT
+权限。若使用CREATE OR REPLACE
+或ALTER修改视图，还需要视图的DROP权限。</p>
+<p>创建视图语法：</p>
+<p>CREATE [OR REPLACE]</p>
+<p>​ VIEW vname [(col_list)]</p>
+<p>​ AS select_statement</p>
+<p>修改视图语法：</p>
+<p>ALTER</p>
+<p>​ VIEW vname [(col_list)]</p>
+<p>​ AS select_statement</p></li>
+<li><p>删除视图</p>
+<p>DROP VIEW [IF EXISES] vname</p></li>
+<li><p>查看视图</p>
+<p>MySQL 5.1开始 SHOW TABLES [STATUS]同时会显示视图信息。</p></li>
+</ul>
+<h3 id="存储过程和函数">6. 存储过程和函数</h3>
+<p>​
+存储过程和函数是事先经过编译并存储在数据库中的一段SQL语句的集合，调用存储过程和函数可以简化工作，减少数据在数据库和应用服务器之间的传输，利于提高数据处理效率。</p>
+<p>​
+存储过程和函数的区别在于函数必须有返回值，而存储过程没有，存储过程的参数可以使用IN,
+OUT, INOUT类型，函数的参数只能是IN。</p>
+<h5 id="相关权限">相关权限</h5>
+<ul>
+<li>创建：需要CREATE ROUTINE 权限</li>
+<li>修改或删除：需要ALTER ROUTINE 权限</li>
+<li>执行：需要EXECUTE 权限</li>
+</ul>
+<h5 id="创建or修改存储过程和函数">创建or修改存储过程和函数</h5>
+<p>CREATE PROCEDURE sp_name ([proc_param]) ​ [characteristic]
+routine_body</p>
+<p>CREATE FUNCTION sp_name ([func_param]) ​ RETURNS type ​
+[characteristic] routine_body</p>
+<h5 id="调用">调用</h5>
+<p>CALL sp_name ([proc_param])</p>
+<h5 id="存储过程的好处">存储过程的好处</h5>
+<p>​
+处理逻辑封装在数据库端，调用者不需要了解中间的处理逻辑，一旦处理逻辑发生改变，只需要修改存储过程，而对调用者的程序完全没有影响。</p>
+<h3 id="触发器">7. 触发器</h3>
+<p>​
+触发器是与表有关的数据库对象，在满足定义条件时触发，并执行触发器中定义的语句集合。可以协助应用在数据库端确保数据的完整性。</p>
+<h5 id="创建触发器">创建触发器</h5>
+<p>CREATE TRIGGER trigger_name trigger_time trigger_event</p>
+<p>ON tb1_name FOR EACH ROW trigger_stmt</p>
+<p>触发器只能创建在永久表上， 不能对临时表创建触发器。</p>
+<ul>
+<li>trigger_time ：触发时间，可以是
+<ul>
+<li>BEFORE , 在检查约束前触发</li>
+<li>AFTER , 在检查约束后触发</li>
+</ul></li>
+<li>trigger_event：触发事件，可以是增删改</li>
+</ul>
+<p>对同一个表相同触发时间的相同触发事件，只能定义一个触发器。</p>
+<p><strong>可以使用别名OLD和NEW来引用触发器中发生变化的记录内容。</strong></p>
+<h5 id="触发顺序">触发顺序</h5>
+<ul>
+<li>对于有重复记录、需要进行UPDATE 操作的INSERT,触发器触发的顺序是BEFORE
+INSERT -&gt; BEFORE UPDATE -&gt; AFTER UPDATE;</li>
+<li>对于没有重复记录的INSERT,就是简单执行INSERT, 触发顺序是BEFORE INSERT
+-&gt; AFTER INSERT</li>
+<li><strong>对实际执行UPDATE 操作的记录，仍会执行BEFORE
+INSERT触发器的内容</strong></li>
+</ul>
+<h3 id="事务控制和锁定语句">8. 事务控制和锁定语句</h3>
+<p>​
+默认情况下，表锁和行锁都是自动获得的，不需要额外命令。但是在有的情况下，用户需要明确进行锁表或进行事务的控制，以确保事务的完整性。</p>
+<h5 id="lock-table-与-unlock-table">LOCK TABLE 与 UNLOCK TABLE</h5>
+<ul>
+<li>LOCK TABLES
+锁定用于当前线程的表，如果表被其他线程锁定，则当前线程会等待，直到可以获取所有锁定为止</li>
+<li>UNLOCK TABLES 释放当前线程获得的任何锁定</li>
+</ul>
+<h5 id="事务控制">事务控制</h5>
+<p>​ 默认情况下，MySQL是自动提交的。</p>
+<ul>
+<li>START TRANSACTION 或BEGIN 开始一项新的事务</li>
+<li>COMMIT 和 ROLLBACK 用来提交或回滚事务</li>
+<li>CHAIN 和 RELEASE 子句分别定义事务提交或回滚之后的操作，
+<ul>
+<li>CHAIN 会立即启动一个新事务，并和刚才的事务有相同的隔离级别；</li>
+<li>RELEASE 会断开和客户端的连接</li>
+</ul></li>
+<li>SET AUTOCOMMIT (=0)
+修改当前连接的提交方式，设为0时之后的所有事务都需要明确的命令进行提交或回滚。</li>
+</ul>
+<p><strong>如果在锁表期间，用start transaction开始一个新事务，会隐含执行
+unlock tables</strong></p>
+<h3 id="sql中的安全问题">9. SQL中的安全问题</h3>
+<h5 id="sql注入">SQL注入</h5>
+<h3 id="mysql-分区">10. MySQL 分区</h3>
+<p>​
+分区是指根据一定的规则，数据库把一个表分解成多个更小的、更容易管理的部分。对于访问数据库的应用来说，逻辑上只有一个表或一个索引，实际上这个表可能有数10个物理分区对象组成，每个分区都是一个独立对象，可以独自处理，可以作为表的一部分处理。分区对于应用来说是完全透明的，不影响应用的业务逻辑。</p>
+<h5 id="分区的优点">分区的优点</h5>
+<ul>
+<li>和单个磁盘或文件系统相比，可以存储更多数据</li>
+<li>优化查询。在Where子句中包含分区条件时，可以只扫描必要的一个或多个分区来提高查询效率；同时在涉及SUM和COUNT这类聚合函数的查询时，可以容易地在每个分区上并行处理，最终只需要汇总所有分区得到的结果</li>
+<li>对于已经过期或不需要保存的数据，可以删除与这些数据有关的分区来快速删除数据</li>
+<li>跨多个磁盘分散数据查询，以获得更大的查询吞吐量</li>
+</ul>
+<h5 id="分区概述">分区概述</h5>
+<p>​
+分区有利于管理非常大的表，采用了分治逻辑，分区引入了分区键的概念。分区键用于根据某个区间值、特定值列表、HASH函数值执行数据的聚集，让数据根据规则分布在不同的分区中。</p>
+<h5 id="分区类型">分区类型</h5>
+<ul>
+<li>RANGE分区：基于一个给定连续区间范围，把数据分配到不同分区</li>
+<li>LIST分区：基于枚举出的值列表分区</li>
+<li>HASH分区：基于给定的分区个数，分配数据</li>
+<li>KEY分区：类似HASH分区</li>
+</ul>
+<p><strong>注意</strong>：无论哪种分区类型，
+都不能用主键/唯一键字段之外的其他字段分区</p>
+<h5 id="range分区">Range分区</h5>
+<p>利用取值范围将数据分成分区，区间要连续且不能互相重叠，使用VALUES LESS
+THAN进行分区的定义。</p>
+<p><strong>注意</strong>：每个分区都按顺序进行定义，从最低到最高。</p>
+<p>可以使用VALUES LESS THAN
+MAXVALUE子句提供给所有大于明确指定的最高值的值。</p>
+<p>特别适用于：</p>
+<ul>
+<li>需要删除过期数据，eg：ALTER TABLE tname DROP PARTITION p0</li>
+<li>经常运行包含分区键的查询</li>
+</ul>
+<h5 id="list-分区">List 分区</h5>
+<p>建立离散的值列表告诉数据库特定的值属于哪个分区。</p>
+<p>使用PARTITION BY LIST + VALUES IN (X,X)</p>
+<p>LIST 分区不需要声明任何特定的顺序。</p>
+<p>若试图插入的列值不包含在分区值列表中时，INSERT会失败并报错。</p>
+<h5 id="columns分区">Columns分区</h5>
+<p>可以细分为RANGE Columns和LIST
+Columns分区，都支持整数、日期时间、字符串三大数据类型。</p>
+<p>Columns分区还支持多列分区。</p>
+<h5 id="hash分区">Hash分区</h5>
+<p>主要用来分散热点读，确保数据在预先确定个数的分区中尽可能平均分布。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/01/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/JavaCollectionNotes01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合框架笔记01--Collection基础概念; List及实现类</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/01/MySQL/MySQLNotes01/">
+                        <span class="hidden-mobile">深入浅出MySQL笔记01--基础篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/zangailcs" target="_blank" rel="nofollow noopener"><span>lics</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

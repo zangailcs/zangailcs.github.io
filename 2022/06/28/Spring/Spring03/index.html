@@ -16,23 +16,24 @@
   <meta name="author" content="lics">
   <meta name="keywords" content="fishing &amp; coding">
   
-    <meta name="description" content="Java集合框架笔记01 基础概念  集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。 集合与数组的区别：  数组长度固定，集合长度不固定。 数组可以存储基本类型和引用类型，集合只能存储引用类型   Collection体系集合  Collection体系集合框架： &#96; Collection父接口  方法：  boolean add(E e) &#x2F;">
+    <meta name="description" content="Spring笔记03--AOP 1. 代理模式 代理模式就是Spring AOP的底层！ 代理模式的分类：  静态代理 动态代理  2. AOP 2.1 什么是AOP AOP（Aspect Oriented Programming），面向切面编程。通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。  2.2 AOP在Spring中的作用 提供声明式事务，允">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java集合框架笔记01--Collection基础概念; List及实现类">
-<meta property="og:url" content="https://zangailcs.github.io/2022/05/01/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/JavaCollectionNotes01/index.html">
+<meta property="og:title" content="Spring笔记03--AOP">
+<meta property="og:url" content="https://zangailcs.github.io/2022/06/28/Spring/Spring03/index.html">
 <meta property="og:site_name" content="蓑笠翁lcs">
-<meta property="og:description" content="Java集合框架笔记01 基础概念  集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。 集合与数组的区别：  数组长度固定，集合长度不固定。 数组可以存储基本类型和引用类型，集合只能存储引用类型   Collection体系集合  Collection体系集合框架： &#96; Collection父接口  方法：  boolean add(E e) &#x2F;">
+<meta property="og:description" content="Spring笔记03--AOP 1. 代理模式 代理模式就是Spring AOP的底层！ 代理模式的分类：  静态代理 动态代理  2. AOP 2.1 什么是AOP AOP（Aspect Oriented Programming），面向切面编程。通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。  2.2 AOP在Spring中的作用 提供声明式事务，允">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/JavaCollectionNotes/01_Collection.png">
-<meta property="article:published_time" content="2022-05-01T09:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-27T15:36:27.755Z">
+<meta property="og:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/03-01-AOP-example.png">
+<meta property="og:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/03-02-AOP-usage.png">
+<meta property="article:published_time" content="2022-06-28T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-29T08:44:45.191Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/JavaCollectionNotes/01_Collection.png">
+<meta name="twitter:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/03-01-AOP-example.png">
   
   
-  <title>Java集合框架笔记01--Collection基础概念; List及实现类 - 蓑笠翁lcs</title>
+  <title>Spring笔记03--AOP - 蓑笠翁lcs</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -158,7 +159,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Java集合框架笔记01--Collection基础概念; List及实现类">
+            <span class="h2" id="subtitle" title="Spring笔记03--AOP">
               
             </span>
 
@@ -168,8 +169,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-01 17:00" pubdate>
-        2022年5月1日 下午
+      <time datetime="2022-06-28 20:00" pubdate>
+        2022年6月28日 晚上
       </time>
     </span>
   
@@ -179,7 +180,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      1.7k 字
     </span>
   
 
@@ -188,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23 分钟
+      15 分钟
     </span>
   
 
@@ -217,126 +218,31 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Java集合框架笔记01--Collection基础概念; List及实现类</h1>
+            <h1 style="display: none">Spring笔记03--AOP</h1>
             
             <div class="markdown-body">
-              <h3 id="java集合框架笔记01">Java集合框架笔记01</h3>
-<h4 id="基础概念">基础概念</h4>
+              <h1 id="spring笔记03--aop">Spring笔记03--AOP</h1>
+<h3 id="代理模式">1. 代理模式</h3>
+<p>代理模式就是Spring AOP的底层！</p>
+<p>代理模式的分类：</p>
 <ul>
-<li>集合： 对象的容器，实现了对 对象 常用的操作，类似数组的功能。</li>
-<li>集合与数组的区别：
-<ul>
-<li>数组长度固定，集合长度不固定。</li>
-<li>数组可以存储基本类型和引用类型，集合只能存储引用类型</li>
-</ul></li>
+<li>静态代理</li>
+<li>动态代理</li>
 </ul>
-<h4 id="collection体系集合">Collection体系集合</h4>
-<ul>
-<li><h5 id="collection体系集合框架">Collection体系集合框架：</h5>
-<p><img src="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/JavaCollectionNotes/01_Collection.png" srcset="/img/loading.gif" lazyload width="70%" style="center"/>`</p></li>
-<li><h5 id="collection父接口">Collection父接口</h5>
-<ul>
-<li><h6 id="方法">方法：</h6>
-<ul>
-<li>boolean add(E e) // 添加一个元素</li>
-<li>boolean addAll(Collection c) // 将集合c中的所有元素添加到此集合</li>
-<li>void clear() // 清空集合中的所有元素</li>
-<li>boolean contains(Object o) // 检查集合中是否包含o元素</li>
-<li>boolean containsAll(Collection c) //
-检查集合中是否包含c中所有元素</li>
-<li>boolean equals(Object obj) // equals</li>
-<li>boolean isEmpty() // 判断集合是否为空集合</li>
-<li>boolean remove(Object o) // 移除o元素</li>
-<li>boolean removeAll(Collection c) //
-移除也包含在集合c中的所有元素</li>
-<li>boolean retainAll(Collection c) //
-相当于交集，仅此集合中保留也包含在c中的元素</li>
-<li>int size() // 返回集合中的元素的个数</li>
-<li>Object[] toArray() // 将集合转换成数组</li>
-</ul></li>
-<li><h6 id="遍历collection">遍历Collection：</h6>
-<ul>
-<li><p>增强for （for-each）</p></li>
-<li><p>迭代器（Iterator）</p>
-<p>（1）有三个方法：</p>
-<ul>
-<li>hasNext(); // 有没有下一个元素</li>
-<li>next(); // 获取下一个元素</li>
-<li>remove(); // 删除一个元素</li>
-</ul>
-<p>（2）使用迭代器遍历集合的典型代码段：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Iterator</span> <span class="hljs-variable">it</span> <span class="hljs-operator">=</span> collection.iterator();<br><span class="hljs-keyword">while</span> (it.hasNext()) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> (String) it.next();<br>    System.out.println(s);<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">     * !!! 不允许遍历过程中使用Collection中的其他方法改变集合中的元素 !!!</span><br><span class="hljs-comment">     * 否则将抛出“ConcurrentModificationException” 并发修改异常</span><br><span class="hljs-comment">     * 但可以使用迭代器中的remove()方法删除元素</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-comment">// collection.remove(s);    // 不允许！ 抛出ConcurrentModificationException异常</span><br>    <span class="hljs-comment">// it.remove();             // 允许</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>​</p></li>
-</ul></li>
-</ul></li>
-<li><h5 id="list子接口">List子接口</h5>
-<ul>
-<li><h6 id="特点">特点：</h6>
-<p>有序、有下标、元素可重复</p></li>
-<li><h6 id="方法-1">方法：</h6>
-<p>包含Collection父接口中的全部方法，并包含以下方法：</p>
-<ul>
-<li>void add(int index, E element) // 将元素插入指定位置</li>
-<li>boolean addAll(int index, Collection c) //
-将c中的所有元素插入到此集合的指定位置</li>
-<li>E get(int index) // 获取指定位置的元素</li>
-<li>List subList(int fromIndex, int toIndex) // 截取部分列表</li>
-<li>indexOf(Object o) // 获取o第一次出现的位置</li>
-<li>lastIndexOf(Object o) //</li>
-<li>remove(int index)</li>
-</ul></li>
-<li><h6 id="遍历方式">遍历方式：</h6>
-<p>可以使用for、增强for、迭代器遍历</p></li>
-<li><h6 id="listiterator">ListIterator：</h6>
-<p>比Collection的Iterator功能更强大，既可以前向遍历，又可以后向遍历，还可以在遍历过程中添加、修改或删除元素。</p>
-<p>​ 包含以下方法：</p>
-<ul>
-<li>void add(E e) // 将e插入list</li>
-<li>boolean hasNext()<br />
-</li>
-<li>boolean hasPrevious()</li>
-<li>E next() // 返回下一个元素并移动游标</li>
-<li>int nextIndex() // 返回下个元素的下标</li>
-<li>E previous()</li>
-<li>int previousIndex()</li>
-<li>void remove() // 删除上一次调用next或previous返回的元素</li>
-<li>void set(E e) // 修改上一次调用next或previous返回的元素</li>
-</ul></li>
-</ul></li>
-<li><h5 id="list的实现类">List的实现类：</h5>
-<ul>
-<li>ArrayList
-<ul>
-<li>数组结构实现，查询快、增删慢</li>
-<li>运行效率快、线程不安全</li>
-</ul></li>
-<li>Vector
-<ul>
-<li>数组结构实现，查询快、增删慢</li>
-<li>运行效率慢、线程安全</li>
-</ul></li>
-<li>LinkedList
-<ul>
-<li>链表结构实现，增删快、查询慢</li>
-</ul></li>
-</ul></li>
-<li><h5 id="arraylist-源码分析">ArrayList 源码分析</h5>
-<p>​ DEFAULT_CAPACITY = 10 默认容量大小</p>
-<p>​ --
-如果没有像集合中添加任何元素时，容量是0；添加一个元素之后，容量是10</p>
-<p>​ elementData 存放元素的数组</p>
-<p>​ size 实际元素个数</p>
-<p>​ add方法，在数组容量不够时，扩容为原来的1.5倍</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">grow</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>    <span class="hljs-comment">// overflow-conscious code</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">oldCapacity</span> <span class="hljs-operator">=</span> elementData.length;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">newCapacity</span> <span class="hljs-operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>        newCapacity = minCapacity;<br>    <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>        newCapacity = hugeCapacity(minCapacity);<br>    <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span><br>    elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><h5 id="linkedlist-源码分析">LinkedList 源码分析</h5>
-<p>基于双向链表</p>
-<p>int size 集合大小</p>
-<p>Node first 链表的头节点</p>
-<p>Node last 链表的尾节点</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>&lt;E&gt; &#123;<br>    E item;<br>    Node&lt;E&gt; next;<br>    Node&lt;E&gt; prev;<br><br>    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;<br>        <span class="hljs-built_in">this</span>.item = element;<br>        <span class="hljs-built_in">this</span>.next = next;<br>        <span class="hljs-built_in">this</span>.prev = prev;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">linkLast</span><span class="hljs-params">(E e)</span> &#123;<br>    <span class="hljs-keyword">final</span> Node&lt;E&gt; l = last;<br>    <span class="hljs-keyword">final</span> Node&lt;E&gt; newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>&lt;&gt;(l, e, <span class="hljs-literal">null</span>);<br>    last = newNode;<br>    <span class="hljs-keyword">if</span> (l == <span class="hljs-literal">null</span>)<br>        first = newNode;<br>    <span class="hljs-keyword">else</span><br>        l.next = newNode;<br>    size++;<br>    modCount++;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>​</p></li>
-</ul>
+<h3 id="aop">2. AOP</h3>
+<h4 id="什么是aop">2.1 什么是AOP</h4>
+<p>AOP（Aspect Oriented
+Programming），面向切面编程。通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。</p>
+<p><img src="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/03-01-AOP-example.png" srcset="/img/loading.gif" lazyload width="80%" style="center"/></p>
+<h4 id="aop在spring中的作用">2.2 AOP在Spring中的作用</h4>
+<p>提供声明式事务，允许用户自定义切面。</p>
+<p><img src="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/03-02-AOP-usage.png" srcset="/img/loading.gif" lazyload width="80%" style="center"/></p>
+<h4 id="使用spring实现aop">2.3 使用Spring实现AOP</h4>
+<p>【重点】使用AOP，需要导入一个依赖包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.aspectj<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aspectjweaver<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.9.9.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>runtime<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>方式一：使用Spring的API接口</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:aop</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/aop&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans</span></span><br><span class="hljs-string"><span class="hljs-tag">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="hljs-string"><span class="hljs-tag">        http://www.springframework.org/schema/aop</span></span><br><span class="hljs-string"><span class="hljs-tag">        https://www.springframework.org/schema/aop/spring-aop.xsd&quot;</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 注册bean --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userService&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.lics.service.UserServiceImpl&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;log&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.lics.log.Log&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;logAfter&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.lics.log.LogAfter&quot;</span> /&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 配置aop --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">aop:config</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 切入点 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">aop:pointcut</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pointcut&quot;</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">&quot;execution(* com.lics.service.UserServiceImpl.*(..))&quot;</span>/&gt;</span><br>        <span class="hljs-comment">&lt;!-- 执行环绕增加！ --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">aop:advisor</span> <span class="hljs-attr">advice-ref</span>=<span class="hljs-string">&quot;log&quot;</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">&quot;pointcut&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">aop:advisor</span> <span class="hljs-attr">advice-ref</span>=<span class="hljs-string">&quot;logAfter&quot;</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">&quot;pointcut&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">aop:config</span>&gt;</span><br>    <br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>方式二：自定义类</p>
 
             </div>
             <hr>
@@ -346,7 +252,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">Java集合框架</a>
+                      <a class="hover-with-bg" href="/categories/Spring/">Spring</a>
                     
                   </div>
                 
@@ -364,18 +270,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/05/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/JavaCollectionNotes02/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java集合框架笔记02--泛型;Set</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/04/MySQL/MySQLNotes02/">
-                        <span class="hidden-mobile">深入浅出MySQL笔记02--开发篇</span>
+                      <a href="/2022/06/28/Spring/Spring02/">
+                        <span class="hidden-mobile">Spring笔记02--自动装配&注解开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

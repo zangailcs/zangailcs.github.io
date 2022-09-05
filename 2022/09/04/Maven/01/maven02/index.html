@@ -24,7 +24,7 @@
 <meta property="og:description" content="Maven入门02-实验一（根据坐标创建Maven工程） 1. Maven核心概念：坐标 ① 数学中的坐标： 以三维空间坐标系为例，使用x、y、z三个向量，可以在空间中唯一的定位到一个点。 ② Maven中的坐标 [1] 向量说明 使用三个向量在Maven的仓库中唯一的定位到一个jar包。  groupId：公司或组织的id artifactId：一个项目或者是项目中的一个模块的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-04T15:55:20.204Z">
+<meta property="article:modified_time" content="2022-09-05T14:51:45.947Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
@@ -177,7 +177,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      832 字
+      3.3k 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7 分钟
+      28 分钟
     </span>
   
 
@@ -269,6 +269,24 @@ id="maven入门02-实验一根据坐标创建maven工程">Maven入门02-实验�
 <h4 id="使用命令生成maven工程">③ 使用命令生成Maven工程</h4>
 <p>运行 <font color='cornflowerblue'><strong>mvn
 archetype:generate</strong></font> 命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Choose a number or apply filter (format: [groupId:]artifactId, <span class="hljs-keyword">case</span> sensitive contains): 7: 【默认值，7代表quickstart】<br>Define value <span class="hljs-keyword">for</span> property <span class="hljs-string">&#x27;groupId&#x27;</span>: com.lics.maven<br>Define value <span class="hljs-keyword">for</span> property <span class="hljs-string">&#x27;artifactId&#x27;</span>: pro01-maven-java<br>Define value <span class="hljs-keyword">for</span> property <span class="hljs-string">&#x27;version&#x27;</span> 1.0-SNAPSHOT: :【默认版本号】<br>Define value <span class="hljs-keyword">for</span> property <span class="hljs-string">&#x27;package&#x27;</span> com.lics.maven: :<br></code></pre></td></tr></table></figure>
+<h4 id="调整">④ 调整</h4>
+<p>Maven默认依赖的是较低的junit版本3.8.1，可以改成较合适的4.12版本。</p>
+<p>自动生成的App.java和AppTest.java可以删除。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 依赖信息配置 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 通过坐标来依赖其他的jar包 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <br>        <span class="hljs-comment">&lt;!-- 依赖的范围 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="自动生成的pom.xml解读">⑤ 自动生成的pom.xml解读</h4>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- project标签: 根标签, 表示对当前工程进行配置、管理 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">  <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- modelVersion标签: 从maven 2开始就固定是4.0.0 --&gt;</span><br>  <span class="hljs-comment">&lt;!-- 代表当前 pom.xml 所采用的标签结构 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br><br>  <span class="hljs-comment">&lt;!-- gav 坐标信息 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.lics.maven<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>pro01-maven-java<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><br>  <span class="hljs-comment">&lt;!-- packaging标签: 打包方式 --&gt;</span><br>  <span class="hljs-comment">&lt;!-- 取值jar: 生成jar包, 说明这是一个 Java 工程 --&gt;</span><br>  <span class="hljs-comment">&lt;!-- 取值war: 生成war包, 说明这是一个 Web 工程 --&gt;</span><br>  <span class="hljs-comment">&lt;!-- 取值pom: 说明这个工程是用来管理其他工程的工程 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">packaging</span>&gt;</span>jar<span class="hljs-tag">&lt;/<span class="hljs-name">packaging</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>pro01-maven-java<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://maven.apache.org<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br><br>  <span class="hljs-comment">&lt;!-- 在Maven中定义属性值 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 在构建过程中读取源码时使用的字符集 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br>  <span class="hljs-comment">&lt;!-- dependencies标签: 配置具体的依赖信息, 可以包含多个 dependency 子标签 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- dependency标签: 配置一个具体的依赖信息 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>      <span class="hljs-comment">&lt;!-- 坐标信息 --&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><br>      <span class="hljs-comment">&lt;!-- scope标签: 当前依赖的范围 --&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="maven核心概念pom">4. Maven核心概念：POM</h3>
+<h4 id="含义">① 含义</h4>
+<p>POM：<font color='cornflowerblue'>P</font>roject
+<font color='cornflowerblue'>O</font>bject
+<font color='cornflowerblue'>M</font>odel，项目对象模型。和POM类似的是：DOM(Document
+Object Model)，文档对象模型。它们都是模型化思想的具体体现。</p>
+<h4 id="模型化思想">② 模型化思想</h4>
+<p>POM表示将工程抽象为一个模型，再用程序中的对象来描述这个模型。这样我们就可以用程序来管理项目了。在开发过程中，最基本的做法就是将现实中的事物抽象为模型，然后封装模型相关的数据作为一个对象，在程序中计算与现实事物相关的数据。</p>
+<h4 id="对应的配置文件">③ 对应的配置文件</h4>
+<p>POM理念集中体现在Maven工程根目录下pom.xml这个配置文件中。所以这个pom.xml配置文件就是Maven
+工程的核心配置文件。学习Maven就是学习这个文件怎么配置，各个配置有什么用。</p>
 
             </div>
             <hr>
@@ -503,20 +521,5 @@ archetype:generate</strong></font> 命令</p>
 <script  src="/js/boot.js" ></script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

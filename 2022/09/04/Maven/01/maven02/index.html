@@ -23,11 +23,13 @@
 <meta property="og:site_name" content="蓑笠翁lcs">
 <meta property="og:description" content="Maven入门02-实验一（根据坐标创建Maven工程） 1. Maven核心概念：坐标 ① 数学中的坐标： 以三维空间坐标系为例，使用x、y、z三个向量，可以在空间中唯一的定位到一个点。 ② Maven中的坐标 [1] 向量说明 使用三个向量在Maven的仓库中唯一的定位到一个jar包。  groupId：公司或组织的id artifactId：一个项目或者是项目中的一个模块的">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/maven02-folderStruct">
 <meta property="article:published_time" content="2022-09-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-05T14:51:45.947Z">
+<meta property="article:modified_time" content="2022-09-12T11:22:00.663Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/maven02-folderStruct">
   
   
   <title>maven入门笔记02--根据坐标创建Maven工程 - 蓑笠翁lcs</title>
@@ -177,7 +179,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.6k 字
     </span>
   
 
@@ -186,7 +188,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28 分钟
+      30 分钟
     </span>
   
 
@@ -287,6 +289,16 @@ Object Model)，文档对象模型。它们都是模型化思想的具体体现�
 <h4 id="对应的配置文件">③ 对应的配置文件</h4>
 <p>POM理念集中体现在Maven工程根目录下pom.xml这个配置文件中。所以这个pom.xml配置文件就是Maven
 工程的核心配置文件。学习Maven就是学习这个文件怎么配置，各个配置有什么用。</p>
+<h3 id="maven核心概念约定的目录结构">5.
+Maven核心概念：约定的目录结构</h3>
+<h4 id="各个目录的作用">① 各个目录的作用</h4>
+<p><img src="https://lics-blogs-1258546254.cos.ap-nanjing.myqcloud.com/images/Spring/maven02-folderStruct" srcset="/img/loading.gif" lazyload width="50%" style="center"/></p>
+<p>另外还有一个target目录专门存放构建操作输出的结果。</p>
+<h4 id="约定目录结构的意义">② 约定目录结构的意义</h4>
+<p>为了构建过程能尽可能地自动化，必须约定目录结构的作用。例如：Maven执行编译操作，必须先去Java源码目录读取Java源代码，然后把编译结果放在target目录。</p>
+<h4 id="约定大于配置">③ 约定大于配置</h4>
+<p>开发领域的技术发展趋势：约定大于配置，配置大于编码。</p>
+<p>Maven对于目录结构这个问题，没有采用配置的方式，而是基于约定。这样在开发过程中非常方便。</p>
 
             </div>
             <hr>
@@ -313,6 +325,12 @@ Object Model)，文档对象模型。它们都是模型化思想的具体体现�
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/09/12/Maven/01/maven03/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">maven入门笔记03--执行Maven的构建命令&创建Maven的Web工程&依赖的范围</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -391,6 +409,33 @@ Object Model)，文档对象模型。它们都是模型化思想的具体体现�
   
 
   
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        苏ICP备2022029038号-1
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=https://beian.miit.gov.cn/"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>苏ICP备2022029038号-1</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
 
   
 </footer>
@@ -521,5 +566,20 @@ Object Model)，文档对象模型。它们都是模型化思想的具体体现�
 <script  src="/js/boot.js" ></script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

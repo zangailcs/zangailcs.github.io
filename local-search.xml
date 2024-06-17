@@ -336,6 +336,8 @@
     
     <categories>
       
+      <category>Java</category>
+      
       <category>Lambda表达式;Stream API</category>
       
     </categories>
@@ -354,6 +356,8 @@
     
     
     <categories>
+      
+      <category>Java</category>
       
       <category>Lambda表达式;Stream API</category>
       
@@ -374,6 +378,8 @@
     
     <categories>
       
+      <category>Java</category>
+      
       <category>Java集合框架</category>
       
     </categories>
@@ -393,6 +399,8 @@
     
     <categories>
       
+      <category>Java</category>
+      
       <category>Java集合框架</category>
       
     </categories>
@@ -411,6 +419,8 @@
     
     
     <categories>
+      
+      <category>Java</category>
       
       <category>Java集合框架</category>
       

@@ -24,7 +24,7 @@
 <meta property="og:description" content="OnJava05--集合、函数式编程、流 1、集合 Java集合类库是用来“持有”对象的，有两个基本接口：  Collection：由单独元素组成的序列 Map：一组键值对象对，用键来查找值  1.2 小记  队列和栈的行为都是通过LinkedList提供的 栈：Java 1.0开始提供的Stack类设计很糟糕（继承了Vector ），推荐使用ArrayDeque代替：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-25T14:20:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T15:50:55.082Z">
+<meta property="article:modified_time" content="2024-06-30T15:16:03.728Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
@@ -177,7 +177,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.7k 字
+      5.6k 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      31 分钟
+      47 分钟
     </span>
   
 
@@ -335,6 +335,87 @@ f)：从seed开始，将其传给f，f的结果作为下一次调用f的入参�
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">stream(T[] array)<br>stream(T[] array, <span class="hljs-type">int</span> startInclusive, <span class="hljs-type">int</span> endExclusive) <span class="hljs-comment">// 选取数组下标在[startInclusive,endExclusive)左开右闭区间内的元素生成流</span><br></code></pre></td></tr></table></figure>
 <p>（8）正则表达式，splitAsStream：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">charSeq</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Not much,of.a cheese? shop really, is it?&quot;</span>;<br>Pattern.compile(<span class="hljs-string">&quot;[ .,?]+&quot;</span>).splitAsStream(charSeq).map(s -&gt; s + <span class="hljs-string">&quot; &quot;</span>).forEach(System.out::print);       <br><span class="hljs-comment">// 输出：Not much of a cheese shop really is it </span><br></code></pre></td></tr></table></figure>
+<h3 id="中间操作">3.3 中间操作</h3>
+<p>中间操作从一个流中接收对象，并将对象作为另一个流送出后端，连接到其他操作。</p>
+<p>（1）peek()：跟踪与调试，接收遵循Consumer函数式接口的函数，没有返回值，所以只能“看看”对象</p>
+<p>（2）sorted()：排序，可以按需指定比较器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">xxx.stream()<br> .sorted(Comparator.reverseOrder()) <span class="hljs-comment">// 逆向自然顺序</span><br> .forEach(System.out::print);<br></code></pre></td></tr></table></figure>
+<p>（3）移除元素：</p>
+<ul>
+<li>distinct()：移除重复元素</li>
+<li>filter(Predicate pred)：保留pred为true的元素</li>
+</ul>
+<p>（4）映射</p>
+<ul>
+<li>map(Function)</li>
+<li>mapToInt(ToIntFunction)</li>
+<li>mapToLong(ToLongFunction)</li>
+<li>mapToDouble(ToDoubleFunction)</li>
+</ul>
+<p>（5）flatMap()：扁平化，将元素流的流里的每个元素流展开为元素（扁平化），传出元素流</p>
+<h3 id="optional类型">3.4 Optional类型</h3>
+<h4 id="基本概念">3.4.1 基本概念</h4>
+<p>（1）既可以作为流元素来占位，又可以保障不存在要找的元素时不会抛出异常。</p>
+<p>（2）以下流操作会返回Optional对象，因为无法确保它们的结果一定存在：</p>
+<ul>
+<li>findFirst</li>
+<li>findAny</li>
+<li>max、min</li>
+<li>reduce</li>
+<li>average</li>
+</ul>
+<p>当流为空时，上述操作的结果均不存在，会返回Optional.empty。</p>
+<p>（3）PS：创建空流的语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.&lt;String&gt;empty();  <span class="hljs-comment">// 如果没有上下文，且不加&lt;String&gt;，Java无法推断类型</span><br>Stream&lt;String&gt; empty = Stream.empty();   <span class="hljs-comment">// 有上下文，可以省略钻石符号</span><br></code></pre></td></tr></table></figure>
+<p>（4）Optional的两个基本动作：</p>
+<ul>
+<li>isPresent：判断里面是否有东西</li>
+<li>get：如果有东西，获取它</li>
+</ul>
+<h4 id="便捷函数">3.4.2 便捷函数</h4>
+<p>简化了“先检查再处理所包含的对象”的过程</p>
+<ul>
+<li><p>ifPresent：如果值存在，就用这个值调用consumer，否则什么都不做</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">ifPresent</span><span class="hljs-params">(Consumer&lt;? <span class="hljs-built_in">super</span> T&gt; consumer)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>orElse：如果对象存在，则返回这个对象，否则返回other</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">T <span class="hljs-title function_">orElse</span><span class="hljs-params">(T other)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>orElseGet：如果对象存在，则返回这个对象，否则返回other函数创建的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">T <span class="hljs-title function_">orElseGet</span><span class="hljs-params">(Supplier&lt;? extends T&gt; other)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>orElseThrow：否则抛出一个exceptionSupplier创建的异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;X <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Throwable</span>&gt; T <span class="hljs-title function_">orElseThrow</span><span class="hljs-params">(Supplier&lt;? extends X&gt; exceptionSupplier)</span> <span class="hljs-keyword">throws</span> X<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="创建optional">3.4.3 创建Optional</h4>
+<p>Optional类中有下面三个静态方法，来创建Optional：</p>
+<ul>
+<li>empty()：空的Optional</li>
+<li>of(value)：已知value非空</li>
+<li>ofNullable（value）：不确定value是不是null
+<ul>
+<li>value是null时，自动返回Optional.empty</li>
+<li>否则将value包在Optional中</li>
+</ul></li>
+</ul>
+<h4 id="optional上的filter">3.4.4 Optional上的filter</h4>
+<ul>
+<li>普通的流filter：如果pred返回false，会从流中删除元素</li>
+<li>Optional.filter：如果pred返回false，不会删除元素，而是转化为empty</li>
+</ul>
+<h4 id="由optional组成的流">3.4.5 由Optional组成的流</h4>
+<p>需要针对不同应用采取不同的方法，见代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Signal.stream()<br>  .limit(<span class="hljs-number">10</span>)<br>  .filter(Optional::isPresent) <span class="hljs-comment">// 此处只保留了非empty的Optional</span><br>  .map(Optional::get) <span class="hljs-comment">// 再map调用get来获取包在其中的对象</span><br>  .forEach(System.out::println);<br></code></pre></td></tr></table></figure>
+<h3 id="终结操作">3.5 终结操作</h3>
+<p>接受一个流，并生成一个最终结果。</p>
+<p>（1）将流转换为数组：</p>
+<ul>
+<li>toArray()</li>
+</ul>
+<p>（2）在每个元素上应用某个终结操作：</p>
+<ul>
+<li>```java void forEach(Consumer&lt;? super T&gt; action); //
+parallel()时，不确保操作元素的顺序，可以最大程度地利用并行流提高效率
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><br>- ```java<br>  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">forEachOrdered</span><span class="hljs-params">(Consumer&lt;? <span class="hljs-keyword">super</span> T&gt; action)</span></span>; <span class="hljs-comment">// parallel()时，也确保顺序是原始流的顺序</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>（3）收集操作：</p>
 
             </div>
             <hr>

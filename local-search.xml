@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>OnJava06--异常</title>
+    <link href="/2024/07/08/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava06/"/>
+    <url>/2024/07/08/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava06/</url>
+    
+    <content type="html"><![CDATA[<h1 id="onjava06--异常">OnJava06--异常</h1><h3 id="异常">1、异常</h3><p>抛出异常时：</p><ol type="1"><li>创建异常对象，也是new创建，并放在堆上</li><li>停止当前执行路径</li><li>异常处理机制接管控制，找到“异常处理程序” （catch块）<ul><li>异常处理程序用来从问题中恢复，要么尝试另一条路径，要么继续执行</li></ul></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>EnjoyCoding</category>
+      
+      <category>Java</category>
+      
+      <category>OnJava笔记</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OnJava05--集合、函数式编程、流</title>
     <link href="/2024/06/25/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava05/"/>
     <url>/2024/06/25/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava05/</url>

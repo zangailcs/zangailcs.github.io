@@ -24,7 +24,7 @@
 <meta property="og:description" content="OnJava06--异常 1、异常 （1）抛出异常时：  创建异常对象，也是new创建，并放在堆上 停止当前执行路径 异常处理机制接管控制，找到“异常处理程序” （catch块）  异常处理程序用来从问题中恢复，要么尝试另一条路径，要么继续执行   （2）终止与恢复  终止模型--Java支持的模型 恢复模型--重试  Java中需要通过把try块放在while循环">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-08T14:20:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T15:54:38.334Z">
+<meta property="article:modified_time" content="2024-07-10T15:39:01.747Z">
 <meta property="article:author" content="lics">
 <meta property="article:tag" content="fishing &amp; coding">
 <meta name="twitter:card" content="summary_large_image">
@@ -177,7 +177,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      295 字
+      429 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      4 分钟
     </span>
   
 
@@ -241,6 +241,15 @@
 <p>也即方法签名中的throws部分</p>
 <figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">f</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception1, Exception2 &#123;<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="特例runtimeexception">（4）特例：RuntimeException</h4>
+<ul>
+<li>无法预料的错误，eg：空指针异常</li>
+<li>RuntimeException无法放在throws后面，因为它们是<strong>非检查型异常</strong>。</li>
+<li>编译器会强制实施对所有非RuntimeException运行时异常的检查型异常的处理。</li>
+</ul>
+<h4 id="异常的约束">（5）异常的约束</h4>
+<ul>
+<li>重写一个方法时，只能抛出该方法的基类版本中说明的异常</li>
+</ul>
 
             </div>
             <hr>
@@ -506,5 +515,20 @@
 <script  src="/js/boot.js" ></script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

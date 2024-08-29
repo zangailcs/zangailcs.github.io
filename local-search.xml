@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>Java知识点01</title>
+    <link href="/2024/08/20/EnjoyCoding/Java/%E7%9F%A5%E8%AF%86%E7%82%B9/Java%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    <url>/2024/08/20/EnjoyCoding/Java/%E7%9F%A5%E8%AF%86%E7%82%B9/Java%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h1 id="java知识点01">Java知识点01</h1><h3 id="java基础">1、Java基础</h3><h4 id="不可变类">1.1 不可变类</h4><p>典型：String</p><p>设计不可变类：私有化变量，不要暴露set方法，有修改的需求要返回一个新对象。</p><h4 id="jdk8-新特性">1.2 JDK8 新特性</h4><ul><li>元空间代替永久代</li><li>lambda表达式</li><li>引入了新的日期类（旧：可变且线程不安全，新：不可变的，安全性+维护性）</li><li>接口默认方法、静态方法</li><li>Stream流式接口</li><li>Optional类 优雅处理空指针</li><li>CompletableFuture（新的异步编程模型）、StampedLock等并发实现类</li><li>修改了HashMap的实现</li></ul><h4 id="stringbuilder是怎么实现的">1.3 StringBuilder是怎么实现的</h4><ul><li>主要用于动态拼接字符串，大致需要实现append、insert、delete、replace、charAt...</li><li>底层用char[]存字符，count记录存放的字符数<ul><li>spring的char[]用final修饰 -- 不可变</li><li>数组是连续内存结构，如果预先能知道长度，可以减少数组扩容次数</li></ul></li><li>append:<ul><li>计算对象转成字符需要占几位</li><li>判断是否需要扩容<ul><li>扩容：容量翻两倍+2，再拷贝</li></ul></li><li>对象转成字符，存入数组</li><li>更新字符数</li></ul></li><li>优化：<ul><li>char数组可以改为byte数组+coder标志位，节省内存，因为char占两个字节，对拉丁系的字符来说是浪费的</li></ul></li></ul><h4 id="jdk工具">1.4 JDK工具</h4><ul><li>jps 虚拟机进程状况工具</li><li>jstat 虚拟机统计信息监视工具</li><li>jmap java内存映射工具</li><li>jhat 虚拟机堆转储快照分析工具</li><li>jstack Java堆栈跟踪工具</li><li>visualvm 图形化工具，内存分析、CPU分析</li></ul><h4 id="spiservice-provider-interface机制">1.5 SPI（Service ProviderInterface）机制</h4><ul><li>服务提供接口，主要用于模块化开发和插件化拓展。</li><li>允许服务提供者通过特定的配置文件将自己的实现注册到系统中，系统通过反射机制动态加载实现，而不需要修改原始框架代码，实现系统的解耦</li><li>典型应用场景：JDBC，不同的数据库驱动程序开发者可以使用JDBC库，定制自己的数据库驱动程序。</li></ul><h4 id="java注解分类">1.6 Java注解分类</h4><ul><li>SOURCE 编译器用的，不会写入class，如@Override，只作为编译器代码检查</li><li>CLASS 写入class，在类加载阶段丢弃，运行时没这个信息</li><li>RUNTIME 写入class，永久保存，可以通过反射获取，如@Autowired</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>EnjoyCoding</category>
+      
+      <category>Java</category>
+      
+      <category>Java知识点</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OnJava08--泛型</title>
     <link href="/2024/07/29/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava08/"/>
     <url>/2024/07/29/EnjoyCoding/Java/OnJava%E5%9F%BA%E7%A1%80%E5%8D%B7/OnJava08/</url>
